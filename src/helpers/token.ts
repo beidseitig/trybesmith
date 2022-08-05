@@ -1,5 +1,4 @@
 import jwt, { SignOptions, Secret } from 'jsonwebtoken';
-import IUser from '../interfaces/IUser';
 import 'dotenv/config';
 
 const jwtDuration: SignOptions = { expiresIn: '7d' };
@@ -9,8 +8,8 @@ const jwtDuration: SignOptions = { expiresIn: '7d' };
 
 const secretPassword: Secret = process.env.SECRET || '';
 
-export default function tokenGeneration(data: Omit<IUser, 'password'>): string {
-  const token = jwt.sign(data, secretPassword, jwtDuration);
+export default function tokenGeneration(username: string): string {
+  const token = jwt.sign({ username }, secretPassword, jwtDuration);
 
   return token;
 }
